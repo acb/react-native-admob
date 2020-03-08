@@ -41,7 +41,6 @@ public class RNAdMobRewardedVideoAdModule extends ReactContextBaseJavaModule imp
 
     private Promise mRequestAdPromise;
 
-    @Override
     public String getName() {
         return REACT_CLASS;
     }
@@ -50,7 +49,6 @@ public class RNAdMobRewardedVideoAdModule extends ReactContextBaseJavaModule imp
         super(reactContext);
     }
 
-    @Override
     public void onRewarded(RewardItem rewardItem) {
         WritableMap reward = Arguments.createMap();
 
@@ -60,7 +58,6 @@ public class RNAdMobRewardedVideoAdModule extends ReactContextBaseJavaModule imp
         sendEvent(EVENT_REWARDED, reward);
     }
 
-    @Override
     public void onRewardedVideoAdLoaded() {
         sendEvent(EVENT_AD_LOADED, null);
         if (mRequestAdPromise != null) {
@@ -69,32 +66,26 @@ public class RNAdMobRewardedVideoAdModule extends ReactContextBaseJavaModule imp
         }
     }
 
-    @Override
     public void onRewardedVideoAdOpened() {
         sendEvent(EVENT_AD_OPENED, null);
     }
 
-    @Override
     public void onRewardedVideoStarted() {
         sendEvent(EVENT_VIDEO_STARTED, null);
     }
 
-    @Override
     public void onRewardedVideoAdClosed() {
         sendEvent(EVENT_AD_CLOSED, null);
     }
 
-    @Override
     public void onRewardedVideoAdLeftApplication() {
         sendEvent(EVENT_AD_LEFT_APPLICATION, null);
     }
 
-    @Override
     public void onRewardedVideoCompleted() {
         sendEvent(EVENT_VIDEO_COMPLETED, null);
     }
 
-    @Override
     public void onRewardedVideoAdFailedToLoad(int errorCode) {
         String errorString = "ERROR_UNKNOWN";
         String errorMessage = "Unknown error";
@@ -145,7 +136,6 @@ public class RNAdMobRewardedVideoAdModule extends ReactContextBaseJavaModule imp
     @ReactMethod
     public void requestAd(final Promise promise) {
         new Handler(Looper.getMainLooper()).post(new Runnable() {
-            @Override
             public void run() {
                 RNAdMobRewardedVideoAdModule.this.mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(getCurrentActivity());
 
@@ -178,7 +168,6 @@ public class RNAdMobRewardedVideoAdModule extends ReactContextBaseJavaModule imp
     @ReactMethod
     public void showAd(final Promise promise) {
         new Handler(Looper.getMainLooper()).post(new Runnable() {
-            @Override
             public void run() {
                 if (mRewardedVideoAd != null && mRewardedVideoAd.isLoaded()) {
                     mRewardedVideoAd.show();
@@ -193,7 +182,6 @@ public class RNAdMobRewardedVideoAdModule extends ReactContextBaseJavaModule imp
     @ReactMethod
     public void isReady(final Callback callback) {
         new Handler(Looper.getMainLooper()).post(new Runnable() {
-            @Override
             public void run() {
                 if (mRewardedVideoAd != null) {
                     callback.invoke(mRewardedVideoAd.isLoaded());
